@@ -1,4 +1,16 @@
 
+
+
+def break_in_grids_of_16(s):
+    all = []
+    for i in range(len(s)//16):
+        b = s[i*16: i*16 + 16]
+        grid = [[], [], [], []]
+        for i in range(4):
+            for j in range(4):
+                grid[i].append(b[i + j*4])
+        all.append(grid)
+    return all
 aes_sbox = [
     [int('63', 16), int('7c', 16), int('77', 16), int('7b', 16), int('f2', 16), int('6b', 16), int('6f', 16), int('c5', 16), int(
         '30', 16), int('01', 16), int('67', 16), int('2b', 16), int('fe', 16), int('d7', 16), int('ab', 16), int('76', 16)],
