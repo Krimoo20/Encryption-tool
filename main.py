@@ -137,20 +137,6 @@ def multiply_by_2(v):
 def multiply_by_3(v):
     return multiply_by_2(v) ^ v
 
-
-
-def add_sub_key(block_grid, key_grid):
-    r = []
-
-    # 4 rows in the grid
-    for i in range(4):
-        r.append([])
-        # 4 values on each row
-        for j in range(4):
-            r[-1].append(block_grid[i][j] ^ key_grid[i][j])
-    return r
-
-
 def mix_columns(grid):
     new_grid = [[], [], [], []]
     for i in range(4):
@@ -173,3 +159,14 @@ def mix_column(column):
             column[0]) ^ column[1] ^ column[2],
     ]
     return r
+def add_sub_key(block_grid, key_grid):
+    r = []
+
+    # 4 rows in the grid
+    for i in range(4):
+        r.append([])
+        # 4 values on each row
+        for j in range(4):
+            r[-1].append(block_grid[i][j] ^ key_grid[i][j])
+    return r
+
