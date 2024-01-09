@@ -123,3 +123,53 @@ def expand_key(key, rounds):
 
 def rotate_row_left(row, n=1):
     return row[n:] + row[:n]
+
+
+
+def multiply_by_2(v):
+    s = v << 1
+    s &= 0xff
+    if (v & 128) != 0:
+        s = s ^ 0x1b
+    return s
+
+
+def multiply_by_3(v):
+    return multiply_by_2(v) ^ v
+
+
+
+def add_sub_key(block_grid, key_grid):
+    r = []
+
+    # 4 rows in the grid
+    for i in range(4):
+        r.append([])
+        # 4 values on each row
+        for j in range(4):
+            r[-1].append(block_grid[i][j] ^ key_grid[i][j])
+    return r
+
+
+def mix_columns(grid):
+    new_grid = [[], [], [], []]
+    for i in range(4):
+        col = [grid[j][i] for j in range(4)]
+        col = mix_column(col)
+        for i in range(4):
+            new_grid[i].append(col[i])
+    return new_grid
+
+
+def mix_column(column):
+    r = [
+        multiply_by_2(column[0]) ^ multiply_by_3(
+            column[1]) ^ column[2] ^ column[3],
+        multiply_by_2(column[1]) ^ multiply_by_3(
+            column[2]) ^ column[3] ^ column[0],
+        multiply_by_2(column[2]) ^ multiply_by_3(
+            column[3]) ^ column[0] ^ column[1],
+        multiply_by_2(column[3]) ^ multiply_by_3(
+            column[0]) ^ column[1] ^ column[2],
+    ]
+    return r
