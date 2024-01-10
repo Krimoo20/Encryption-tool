@@ -1,3 +1,6 @@
+import argparse
+
+
 def break_in_grids_of_16(s):
     all = []
     for i in range(len(s)//16):
@@ -296,4 +299,13 @@ def dec(key, data):
     result_string = byte_stream[:null_byte_index].decode('utf-8')
 
     return result_string
+
+
+
+def argument_parser():
+    # Create an ArgumentParser object
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--enc', nargs=1, help='-e <plain_text>')
+    parser.add_argument('-d', '--dec', nargs=2, help='-d <cipher> <dec_key>')
+    return parser.parse_args()
 
